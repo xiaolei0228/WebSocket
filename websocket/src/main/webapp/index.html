@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>websocket示例</title>
+</head>
+<body>
+<input type="button" onclick="connect();" value="连接websocket服务器">
+<input type="text" id="msg">
+<input type="button" onclick="sendMsg();" value="发送">
+
+<div id="msgContainer"></div>
+<script type="text/javascript">
+    var ws;
+    function connect() {
+        var target = "ws://localhost/echo";
+        if ("WebSocket" in window) {
+            ws = new WebSocket(target);
+        } else if ("MozWebSocket" in window) {
+            ws = new MozWebSocket(target);
+        } else {
+            alert('你的浏览器不支持WebSocket!');
+            return;
+        }
+
+        ws.onopen = function() {
+            alert("webSocket通道建立成功...")
+        };
+
+        ws.onmessage = function(e) {
+            var msg = e.data;
+            showMsg(msg);
+        };
+    }
+
+    function sendMsg() {
+        var msg = document.getElementById("msg");
+        ws.send(msg.value);
+    }
+
+    function showMsg(msg) {
+        document.getElementById("msg").value = "";
+        var container = document.getElementById("msgContainer");
+        container.innerHTML += msg + "<br>";
+    }
+</script>
+</body>
+</html>
