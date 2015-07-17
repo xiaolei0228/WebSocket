@@ -5,13 +5,15 @@
     <title>websocket示例</title>
 </head>
 <body>
-<input type="button" onclick="connect();" value="连接websocket服务器">
 <input type="text" id="msg">
 <input type="button" onclick="sendMsg();" value="发送">
 
 <div id="msgContainer"></div>
 <script type="text/javascript">
     var ws;
+
+    window.onload = connect();
+
     function connect() {
         var target = "ws://localhost/echo";
         if ("WebSocket" in window) {
