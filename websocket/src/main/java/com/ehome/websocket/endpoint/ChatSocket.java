@@ -51,6 +51,11 @@ public class ChatSocket {
     }
 
 
+    /**
+     * 广播
+     * @param type
+     * @param message
+     */
     private static void broadcast(String type, String message) {
         Set<Map.Entry<String, Session>> set = sessionMap.entrySet();
         for (Map.Entry<String, Session> session : set) {
